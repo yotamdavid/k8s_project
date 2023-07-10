@@ -6,11 +6,11 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: yotandavid/ferari_website:latest
+      app: yotamdavid/ferari_website:latest
   template:
     metadata:
       labels:
-        app: yotandavid/ferari_website:latest
+        app: yotamdavid/ferari_website:latest
     spec:
       containers:
       - name: my-container
