@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: yotamdavid-ferari-website
+  type: LoudBalancer
   ports:
     - protocol: TCP
       port: 80
