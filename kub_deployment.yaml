@@ -16,4 +16,4 @@ spec:
       - name: my-container
         image: yotamdavid/ferari_website:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 32000
