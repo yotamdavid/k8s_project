@@ -1,19 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-deployment
+  name: mysql-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: yotamdavid-ferari-website
+      app: mysql-app
   template:
     metadata:
       labels:
-        app: yotamdavid-ferari-website
+        app: mysql-app
     spec:
       containers:
-      - name: my-container
-        image: yotamdavid/ferari_docker:latest
-        ports:
-        - containerPort: 32000
+        - name: mysql-container
+          image: yotamdavid/ferari_docker:latest
+          imagePullPolicy: Always  # Set the image pull policy to Always
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: yotam
