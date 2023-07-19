@@ -1,23 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: flask-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: mysql-app
+      app: flask-app
   template:
     metadata:
       labels:
-        app: mysql-app
+        app: flask-app
     spec:
       containers:
-        - name: mysql-container
-          image: yotamdavid/ferari_docker:latest
-          imagePullPolicy: Always  # Set the image pull policy to Always
+        - name: flask-app
+          image: roylatin/devops-crypto:latest
           ports:
-            - containerPort: 3306
+            - containerPort: 5000
           env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: yotam
+            - name: MYSQL_HOST
+              value: mysql-service  # Update with the name of your MySQL service
+            - name: MYSQL_USER
+              value: root  # Replace with your MySQL username
+            - name: MYSQL_PASSWORD
+              value: password  # Replace with your MySQL password
+            - name: MYSQL_DATABASE
+              value: crypto  # Replace with your MySQL database name
