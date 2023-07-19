@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Clean Up') {
+            steps {
+                // Clean Up Project Files And Clone Git - To Update The Project
+                sh 'rm -rf ferari_website/'
+                sh 'git clone https://github.com/yotamdavid/ferari_website.git'
+                dir('ferari_website/web_project') {
+                    // Deletes Previous Docker Images
+                    sh 'docker rmi -f yotamdavid/ferari_website:latest'
+                }
+            }
+        }
+
+        stage('Build And Push The Image To Docker Hub') {
+            steps {
+                dir('ferari_website/web_project') {
+                    // Creates Docker Image
+                    sh "docker build -t yotamdavid/ferari_website:1.${BUILD_NUMBER} -t yotamdavid/ferari_website:latest ."
+                }
+                // Pushes Docker Image To Docker Hub
+                sh 'docker push yotamdavid/ferari_website:1.${BUILD_NUMBER}'
+                sh 'docker push yotamdavid/ferari_website:latest'
+
+                // Cleanup old Docker images
+                sh "docker image ls --format '{{.ID}}' yotamdavid/ferari_website --filter 'dangling=false' | sort -r | awk 'NR>4' | xargs -I {} docker image rm -f {}"            
+            }
+        }
+
+        stage('Running k8s On Test Server') {
+            steps {
+                // Runs tests from the main machine on the website
+                sh 'ls'
+                sh 'gcloud container clusters get-credentials yotamk8s --project golden-system-393111 --region us-central1'
+                sh 'rm -rf k8s_project'
+                sh 'git clone https://github.com/yotamdavid/k8s_project.git'
+                sh 'cd k8s_project/'
+                sh 'ls'
+                sh 'kubectl apply -f test_deploy.yaml'
+                sh 'kubectl apply -f test_servis.yaml'
+                sh 'chmod +x /var/lib/jenkins/workspace/k8s_pipeline/k8s_project/test.sh'
+                sh '/var/lib/jenkins/workspace/k8s_pipeline/k8s_project/test.sh'
+                sh 'kubectl delete pods --all'
+                sh 'kubectl delete services --all'
+                sh 'kubectl delete deployments --all'
+            }
+        }
+
+        stage('Running k8s On Prod Server') {
+            steps {
+                // Runs tests from the main machine on the website
+                sh 'cd /var/lib/jenkins/workspace/k8s_pipeline/k8s_project'
+                sh 'kubectl apply -f test_deploy.yaml'
+                sh 'kubectl apply -f test_servis.yaml'
+            }
+        }
+    }
+}
