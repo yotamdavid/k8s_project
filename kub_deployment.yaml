@@ -23,6 +23,6 @@ spec:
             - name: MYSQL_USER
               value: root  # Replace with your MySQL username
             - name: MYSQL_PASSWORD
-              value: password  # Replace with your MySQL password
+              value: yotam  # Replace with your MySQL password
             - name: MYSQL_DATABASE
-              value: crypto  # Replace with your MySQL database name
+              value: site_entries  # Replace with your MySQL database name
