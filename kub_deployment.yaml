@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: roylatin/devops-crypto:latest
+          image: yotamdavid/ferari_docker:latest
           ports:
             - containerPort: 5000
           env:
