@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-db-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: init-db
+          image: yotamdavid/ferari_docker
+          command: ["sh", "-c"]
+          args: ["mysql -h mysql-service -u root -yotam -D site_entries < /home/yotam/Desktop/k8s/k8s_project/init.sql"]
+          volumeMounts:
+            - name: init-script
+              mountPath: /home/yotam/Desktop/k8s/k8s_project/init.sql
+              subPath: init.sql
+      restartPolicy: Never
+      volumes:
+        - name: init-script
+          configMap:
+            name: init-script-configmap
+            items:
+              - key: init.sql
+                path: init.sql
