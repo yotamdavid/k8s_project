@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: roylatin/dockerdb
+          image: yotamdavid/ferari_docker
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: password  # Replace with your desired MySQL root password
+              value: yotam  # Replace with your desired MySQL root password
             - name: MYSQL_DATABASE  # Corrected line with a space after the dash
-              value: crypto
+              value: site_entries
           ports:
             - containerPort: 3306
           volumeMounts:
