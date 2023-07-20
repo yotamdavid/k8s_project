@@ -36,24 +36,26 @@ pipeline {
                 sh 'gcloud container clusters get-credentials yotamk8s --project golden-system-393111 --region us-central1'
                 sh 'rm -rf k8s_project'
                 sh 'git clone https://github.com/yotamdavid/k8s_project.git'
-                sh 'cd k8s_project/'
-                sh 'ls'
-                sh 'kubectl apply -f test_deploy.yaml'
-                sh 'kubectl apply -f test_servis.yaml'
-                sh 'chmod +x /var/lib/jenkins/workspace/k8s_pipeline/k8s_project/test.sh'
-                sh '/var/lib/jenkins/workspace/k8s_pipeline/k8s_project/test.sh'
-                sh 'kubectl delete pods --all'
-                sh 'kubectl delete services --all'
-                sh 'kubectl delete deployments --all'
+                dir('k8s_project') {
+                    sh 'kubectl apply -f test_deploy.yaml'
+                    sh 'kubectl apply -f test_servis.yaml'
+                    sh 'chmod +x test.sh'
+                    sh './test.sh'
+                    sh 'kubectl delete pods --all'
+                    sh 'kubectl delete services --all'
+                    sh 'kubectl delete deployments --all' 
+                }
             }
         }
 
         stage('Running k8s On Prod Server') {
             steps {
                 // Runs tests from the main machine on the website
-                sh 'cd /var/lib/jenkins/workspace/k8s_pipeline/k8s_project'
-                sh 'kubectl apply -f test_deploy.yaml'
-                sh 'kubectl apply -f test_servis.yaml'
+                sh 'gcloud container clusters get-credentials yotamk8s --project golden-system-393111 --region us-central1'
+                dir('k8s_project') {
+                    sh 'kubectl apply -f test_deploy.yaml'
+                    sh 'kubectl apply -f test_servis.yaml'
+                }
             }
         }
     }
