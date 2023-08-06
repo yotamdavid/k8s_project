@@ -1,6 +1,19 @@
 #!/usr/bin/bash
 set -ex
 
+# Function to check if all pods are ready
+check_pods_ready() {
+    PODS_READY=$(kubectl get pods -l app=docker-app -o=jsonpath='{.items[*].status.containerStatuses[0].ready}' | tr ' ' '\n' | sort | uniq)
+    if [ "$PODS_READY" != "true" ]; then
+        echo "Not all pods are ready. Retrying in 5 seconds..."
+        sleep 5
+        check_pods_ready
+    fi
+}
+
+# Wait for all pods to be ready
+check_pods_ready
+
 # Function to check if the LoadBalancer IP address is available
 check_loadbalancer_ip() {
     CLUSTER_IP=$(kubectl get service docker-app-service -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
