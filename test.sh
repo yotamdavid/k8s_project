@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 set -ex
 
+sleep 40
 # Function to check if the LoadBalancer IP address is available
 check_loadbalancer_ip() {
     CLUSTER_IP=$(kubectl get service docker-app-service -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
