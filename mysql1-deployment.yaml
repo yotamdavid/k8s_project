@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
+  name: mysql
 spec:
   replicas: 1
   selector:
@@ -20,13 +20,33 @@ spec:
               value: yotam
             - name: MYSQL_DATABASE
               value: users
+          ports:
+            - containerPort: 3306
           volumeMounts:
-            - name: init-sql-config
-              mountPath: /docker-entrypoint-initdb.d
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
       volumes:
-        - name: init-sql-config
-          configMap:
-            name: init-sql-configmap
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
