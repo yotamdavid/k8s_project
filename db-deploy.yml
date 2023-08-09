@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:latest
+          image: yotamdavid/appdatabase:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: yotam  # Replace with your desired MySQL root password
