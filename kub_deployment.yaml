@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: yotamdavid/ferari_docker:latest
+          image: yotamdavid/app_ferari:latest
           ports:
             - containerPort: 5000
           env:
@@ -25,4 +25,4 @@ spec:
             - name: MYSQL_PASSWORD
               value: yotam  # Replace with your MySQL password
             - name: MYSQL_DATABASE
-              value: site_entries  # Replace with your MySQL database name
+              value: users  # Replace with your MySQL database name
