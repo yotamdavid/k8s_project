@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: yotamdavid/appdatabase:latest
+          image: mysql:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: yotam
