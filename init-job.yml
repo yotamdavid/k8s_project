@@ -9,7 +9,7 @@ spec:
         - name: init-db
           image: yotamdavid/appdatabase:latest
           command: ["sh", "-c"]
-          args: ["mysql -h 34.27.164.93 -u root -P 3306 -pyotam -D users < /home/yotam/Desktop/docker/ferari_docker/web_project/init.sql"]
+          args: ["mysql -h 34.27.164.93 -u root -pyotam -D users < /home/yotam/Desktop/docker/ferari_docker/web_project/init.sql"]
           volumeMounts:
             - name: init-script
               mountPath: /home/yotam/Desktop/docker/ferari_docker/web_project/init.sql
