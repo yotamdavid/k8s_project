@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: init-db
-          image: appdatabase:latest
+          image: yotamdavid/appdatabase:latest
           command: ["sh", "-c"]
           args: ["mysql -h mysql-service -u root -pyotam -D users < /home/yotam/Desktop/home/yotam/Desktop/k8s/k8s_project/init.sql"]
           volumeMounts:
