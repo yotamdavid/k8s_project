@@ -19,7 +19,7 @@ spec:
             - containerPort: 5000
           env:
             - name: MYSQL_HOST
-              value: 34.122.22.211  # Update with the name of your MySQL service
+              value: mysql-service  # Update with the name of your MySQL service
             - name: MYSQL_USER
               value: root  # Replace with your MySQL username
             - name: MYSQL_PASSWORD
