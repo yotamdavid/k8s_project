@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: init-db
-          image: mysql:latest
+          image: yotamdavid/appdatabase:latest
           command: ["sh", "-c"]
           args: ["mysql -h mysql-service -u root -pyotam -D users < /home/yotam/Desktop/docker/ferari_docker/web_project/init.sql"]
           volumeMounts:
