@@ -23,6 +23,13 @@ spec:
                   key: password
             - name: MYSQL_DATABASE
               value: users
+          volumeMounts:
+            - name: init-sql-config
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: init-sql-config
+          configMap:
+            name: init-sql-configmap
 ---
 apiVersion: v1
 kind: Service
