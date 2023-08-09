@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db-pod
+spec:
+  volumes:
+    - name: init-sql-volume
+      persistentVolumeClaim:
+        claimName: db-init-sql
+  initContainers:
+    - name: init-db
+      image: mysql:latest
+      command: ["sh", "-c"]
+      args: ["mysql -u root -pyotam < /docker-entrypoint-initdb.d/init.sql"]
+      volumeMounts:
+        - name: init-sql-volume
+          mountPath: /docker-entrypoint-initdb.d
+  containers:
+    - name: db-container
+      image: mysql:latest
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: yotam
