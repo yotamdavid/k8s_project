@@ -13,3 +13,11 @@ spec:
               app: mysql
   policyTypes:
     - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: mysql
+      ports:
+        - protocol: TCP
+          port: 3306
