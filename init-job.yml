@@ -9,7 +9,7 @@ spec:
         - name: init-db
           image: yotamdavid/appdatabase:latest
           command: ["sh", "-c"]
-          args: ["mysql -h mysql-service -u root -yotam -D site_entries < /home/yotam/Desktop/k8s/k8s_project/init.sql"]
+          args: ["mysql -h mysql-service -u root -yotam -D users < /home/yotam/Desktop/k8s/k8s_project/init.sql"]
           volumeMounts:
             - name: init-script
               mountPath: /home/yotam/Desktop/k8s/k8s_project/init.sql
