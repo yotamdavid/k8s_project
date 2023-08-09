@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-pod
+spec:
+  containers:
+    - name: app-container
+      image: your-app-image:latest
+      env:
+        - name: DB_HOST
+          value: db-pod
+        - name: DB_USERNAME
+          value: root
+        - name: DB_PASSWORD
+          value: yotam
