@@ -1,9 +1,9 @@
-CREATE DATABASE IF NOT EXISTS site_entries;
-USE site_entries;
+CREATE DATABASE IF NOT EXISTS users;
 
-CREATE TABLE IF NOT EXISTS site_entries (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    entry_date DATE,
-    entry_time TIME,
-    entry_count INT DEFAULT 0
+USE users;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL
 );
