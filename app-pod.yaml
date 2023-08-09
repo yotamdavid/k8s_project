@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: app-container
-      image: your-app-image:latest
+      image: yotamdavid/app_ferari:latest
       env:
         - name: DB_HOST
           value: db-pod
