@@ -21,15 +21,9 @@ spec:
             - name: MYSQL_HOST
               value: mysql-service
             - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: username
+              value: root
             - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: password
+              value: yotam
             - name: MYSQL_DATABASE
               value: users
 ---
