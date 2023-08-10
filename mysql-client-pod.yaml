@@ -6,4 +6,4 @@ spec:
   containers:
     - name: mysql-client
       image: yotamdavid/appdatabase:latest
-      command: ['sh', '-c', 'while true; do mysql -h mysql-service -u root -pyotam -e "SHOW DATABASES"; sleep 10; done']
+      command: ['sh', '-c', 'while true; do mysql -h db -u root -pyotam -e "SHOW DATABASES"; sleep 10; done']
