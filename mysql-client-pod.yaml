@@ -5,5 +5,5 @@ metadata:
 spec:
   containers:
     - name: mysql-client
-      image: mysql:latest
+      image: yotamdavid/appdatabase:latest
       command: ['sh', '-c', 'while true; do mysql -h mysql-service -u root -pyotam -e "SHOW DATABASES"; sleep 10; done']
