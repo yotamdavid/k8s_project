@@ -13,7 +13,7 @@ spec:
         app: docker-app
     spec:
       containers:
-        - name: nginx-container
+        - name: flask-app
           image: yotamdavid/ferari_website:latest
           ports:
             - containerPort: 5000
