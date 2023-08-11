@@ -1,24 +1,32 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: init-db-job
+  name: mysql-init-job
 spec:
   template:
     spec:
       containers:
-        - name: init-db
-          image: yotamdavid/appdatabase:latest
-          command: ["sh", "-c"]
-          args: ["mysql -h mysql-service -u root -pyotam -D users < /home/yotam/Desktop/k8s/k8s_project/init.sql"]
+        - name: mysql-client
+          image: mysql:latest
+          command: ["/bin/sh", "-c"]
+          args: ["mysql -h mysql -u root -pyotam users < /home/yotam/Desktop/k8s/k8s_project/init.sql"]
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: yotam
           volumeMounts:
-            - name: init-script
+            - name: init-sql
               mountPath: /home/yotam/Desktop/k8s/k8s_project/init.sql
               subPath: init.sql
       restartPolicy: Never
       volumes:
-        - name: init-script
+        - name: init-sql
           configMap:
-            name: init-script-configmap
-            items:
-              - key: init.sql
-                path: init.sql
+            name: init-sql-configmap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-sql-configmap
+data:
+  init.sql: |
+    -- הוסף כאן את הפקודות מקובץ ה-init.sql
