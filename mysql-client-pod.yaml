@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mysql-test-pod
-spec:
-  containers:
-    - name: mysql-client
-      image: yotamdavid/appdatabase:latest
-      command: ['sh', '-c', 'while true; do mysql -h mysql-service -u root -pyotam -e "SHOW DATABASES"; sleep 10; done']
