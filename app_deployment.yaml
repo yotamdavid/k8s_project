@@ -28,8 +28,8 @@ spec:
               value: users  # Replace with your MySQL database name
           resources:
             requests:
-              cpu: "500m"    
-              memory: "1Gi" 
+              cpu: "1000m"   # Minimum required CPU
+              memory: "2Gi"  # Increased memory to 2Gi
             limits:
-              cpu: "1000m"    
-              memory: "2Gi"   
+              cpu: "2000m"   # Maximum allowed CPU
+              memory: "4Gi"  # Increased memory to 4Gi
