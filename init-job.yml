@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: mysql-client
-          image: mysql:latest
+          image: yotamdavid/appdatabase:latest
           command: ["/bin/sh", "-c"]
           args: ["mysql -h mysql -u root -pyotam users < /home/yotam/Desktop/k8s/k8s_project/init.sql"]
           env:
